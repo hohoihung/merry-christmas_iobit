@@ -61,6 +61,13 @@ input.onButtonPressed(Button.A, function () {
         music.playTone(349, music.beat(BeatFraction.Whole))
     }
 })
+music.setBuiltInSpeakerEnabled(true)
+music.stopAllSounds()
+music.startMelody(music.builtInMelody(Melodies.Entertainer), MelodyOptions.ForeverInBackground)
+music.setVolume(10)
 basic.forever(function () {
-	
+    pins.digitalWritePin(DigitalPin.P1, 0)
+    basic.pause(2000)
+    pins.digitalWritePin(DigitalPin.P1, 1)
+    basic.pause(2000)
 })
