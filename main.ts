@@ -1,5 +1,6 @@
 input.onButtonPressed(Button.A, function () {
-    while (true) {
+    basic.showIcon(IconNames.Heart)
+    for (let index = 0; index < 4; index++) {
         music.playTone(262, music.beat(BeatFraction.Whole))
         music.playTone(349, music.beat(BeatFraction.Whole))
         music.playTone(349, music.beat(BeatFraction.Whole))
@@ -60,14 +61,26 @@ input.onButtonPressed(Button.A, function () {
         music.playTone(330, music.beat(BeatFraction.Whole))
         music.playTone(349, music.beat(BeatFraction.Whole))
     }
+    music.stopAllSounds()
 })
 music.setBuiltInSpeakerEnabled(true)
 music.stopAllSounds()
-music.startMelody(music.builtInMelody(Melodies.Entertainer), MelodyOptions.ForeverInBackground)
+music.startMelody(music.builtInMelody(Melodies.Entertainer), MelodyOptions.OnceInBackground)
 music.setVolume(10)
+pins.servoSetPulse(AnalogPin.P12, 4000)
 basic.forever(function () {
     pins.digitalWritePin(DigitalPin.P1, 0)
     basic.pause(2000)
     pins.digitalWritePin(DigitalPin.P1, 1)
+    basic.pause(2000)
+    pins.servoWritePin(AnalogPin.P12, 0)
+    basic.pause(2000)
+    pins.servoWritePin(AnalogPin.P12, 30)
+    basic.pause(2000)
+    pins.servoWritePin(AnalogPin.P12, 50)
+    basic.pause(2000)
+    pins.servoWritePin(AnalogPin.P12, 120)
+    basic.pause(2000)
+    pins.servoWritePin(AnalogPin.P12, 170)
     basic.pause(2000)
 })
