@@ -63,24 +63,39 @@ input.onButtonPressed(Button.A, function () {
     }
     music.stopAllSounds()
 })
+let shorted = 0
 music.setBuiltInSpeakerEnabled(true)
 music.stopAllSounds()
 music.startMelody(music.builtInMelody(Melodies.Entertainer), MelodyOptions.OnceInBackground)
 music.setVolume(10)
-pins.servoSetPulse(AnalogPin.P12, 4000)
+pins.setPull(DigitalPin.P8, PinPullMode.PullUp)
+let light_on = 0
 basic.forever(function () {
-    pins.digitalWritePin(DigitalPin.P1, 0)
-    basic.pause(2000)
-    pins.digitalWritePin(DigitalPin.P1, 1)
-    basic.pause(2000)
-    pins.servoWritePin(AnalogPin.P12, 0)
-    basic.pause(2000)
+    pins.digitalWritePin(DigitalPin.P0, 1)
+    basic.pause(1000)
+    pins.digitalWritePin(DigitalPin.P0, 0)
+    basic.pause(1000)
     pins.servoWritePin(AnalogPin.P12, 30)
-    basic.pause(2000)
+    basic.pause(1000)
+    pins.servoWritePin(AnalogPin.P12, 1)
     pins.servoWritePin(AnalogPin.P12, 50)
-    basic.pause(2000)
+    basic.pause(1000)
     pins.servoWritePin(AnalogPin.P12, 120)
-    basic.pause(2000)
+    basic.pause(1000)
     pins.servoWritePin(AnalogPin.P12, 170)
-    basic.pause(2000)
+    basic.pause(1000)
+    shorted = pins.analogReadPin(AnalogPin.P1)
+    if (shorted == 1) {
+        basic.pause(200)
+        if (light_on == 1) {
+            light_on = 0
+        } else {
+            light_on = 1
+        }
+    }
+    if (light_on == 1) {
+        pins.analogWritePin(AnalogPin.P2, pins.analogReadPin(AnalogPin.P3))
+    } else {
+        pins.analogWritePin(AnalogPin.P2, 0)
+    }
 })
